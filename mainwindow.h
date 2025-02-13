@@ -23,7 +23,7 @@ protected:
 
 private:
     Ui::MainWindow *ui;
-    Sheet *m_sheet;
+    Sheet *m_sheet = nullptr;
     QWidget *m_sheetContent = nullptr;
 
     void setupSheet();
