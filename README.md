@@ -1,7 +1,7 @@
 
 ![QtSheet Example](public/cast_qtsheet.gif)
 
-The anigif has reduced quality. See a real recording here [here](public/cast_qtsheet.mp4).
+The anigif has reduced quality. See a real recording here [here](https://github.com/srutz/qtsheet/raw/refs/heads/main/public/cast_qtsheet.mp4).
 
 # QtSheet
 
