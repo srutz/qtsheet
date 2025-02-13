@@ -7,6 +7,11 @@
 #include <QPushButton>
 #include <QIcon>
 
+
+static const int SHOW_DURATION_MS = 400;
+static const int HIDE_DURATION_MS = 400;
+
+
 Sheet::Sheet(QWidget *content, QWidget *parent)
     : QWidget(parent),
     m_content(content) 
@@ -91,11 +96,11 @@ void Sheet::showSheet(QWidget *destination, Side side) {
 void Sheet::hideSheet(bool animated) {
     m_destination = nullptr;
     if (animated) {
-        m_sidepanel->setPositionA(QPoint(m_side == Side::Left ? -m_width : m_backdrop->width(), 0), 500, [this] {
+        m_sidepanel->setPositionA(QPoint(m_side == Side::Left ? -m_width : m_backdrop->width(), 0), HIDE_DURATION_MS, [this] {
             m_backdrop->hide();
             m_sidepanel->hide();
         });
-        m_backdrop->setBackgroundColorA(QColor::fromRgb(0, 0, 0, 0), 500);
+        m_backdrop->setBackgroundColorA(QColor::fromRgb(0, 0, 0, 0), HIDE_DURATION_MS);
     } else {
         m_sidepanel->setPosition(QPoint(m_side == Side::Left ? -m_width : m_backdrop->width(), 0));
         m_backdrop->hide();
@@ -113,8 +118,8 @@ void Sheet::layout(bool animated) {
         const auto panelWidth = m_width;
         m_sidepanel->resize(panelWidth, m_backdrop->size().height());
         if (animated) {
-            m_sidepanel->setPositionA(QPoint(m_side == Side::Left ? 0 : m_backdrop->width() - panelWidth, 0));
-            m_backdrop->setBackgroundColorA(QColor::fromRgb(0, 0, 0, 192));
+            m_sidepanel->setPositionA(QPoint(m_side == Side::Left ? 0 : m_backdrop->width() - panelWidth, 0), SHOW_DURATION_MS);
+            m_backdrop->setBackgroundColorA(QColor::fromRgb(0, 0, 0, 192), SHOW_DURATION_MS);
         } else {
             m_sidepanel->setPosition(QPoint(m_side == Side::Left ? 0 : m_backdrop->width() - panelWidth, 0));
             m_backdrop->setBackgroundColor(QColor::fromRgb(0, 0, 0, 192));
