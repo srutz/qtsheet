@@ -54,8 +54,7 @@ public:
     QPoint position() const { return m_position; };
     void setPosition(const QPoint position)
     {
-        if (m_position == position)
-        {
+        if (m_position == position) {
             return;
         }
         m_position = position;
@@ -65,8 +64,7 @@ public:
     // animated
     void setPositionA(const QPoint position, int durationMs = 350, std::function<void()> onFinished = nullptr)
     {
-        if (positionAnimation)
-        {
+        if (positionAnimation) {
             positionAnimation->stop();
             delete positionAnimation;
         }
@@ -77,18 +75,15 @@ public:
         anim->setStartValue(m_position);
         anim->setEndValue(position);
         anim->start();
-        if (onFinished != nullptr)
-        {
-            anim->connect(anim, &QPropertyAnimation::finished, this, [=]()
-                          { onFinished(); });
+        if (onFinished != nullptr) {
+            anim->connect(anim, &QPropertyAnimation::finished, this, [=]() { onFinished(); });
         }
     }
 
     QColor backgroundColor() const { return m_backgroundColor; };
     void setBackgroundColor(const QColor color)
     {
-        if (m_backgroundColor == color)
-        {
+        if (m_backgroundColor == color) {
             return;
         }
         applyBackgroundColor(m_backgroundColor);
@@ -104,10 +99,12 @@ public:
         setPalette(backdropPalette);
     }
 
-    void setBackgroundColorA(const QColor color, int durationMs = 200, std::function<void()> onFinished = nullptr)
+    void setBackgroundColorA(
+        const QColor color, 
+        int durationMs = 200, 
+        std::function<void()> onFinished = nullptr)
     {
-        if (backgroundColorAnimation)
-        {
+        if (backgroundColorAnimation) {
             backgroundColorAnimation->stop();
             delete backgroundColorAnimation;
         }
@@ -118,15 +115,13 @@ public:
         anim->setStartValue(m_backgroundColor);
         anim->setEndValue(color);
         anim->start();
-        connect(anim, &QPropertyAnimation::valueChanged, this, [this, anim]
-                {
+        connect(anim, &QPropertyAnimation::valueChanged, this, [this, anim] {
             auto v = anim->currentValue();
             // get the color from the animation
-            applyBackgroundColor(v.value<QColor>()); });
-        if (onFinished != nullptr)
-        {
-            anim->connect(anim, &QPropertyAnimation::finished, this, [=]()
-                          { onFinished(); });
+            applyBackgroundColor(v.value<QColor>()); 
+        });
+        if (onFinished != nullptr) {
+            anim->connect(anim, &QPropertyAnimation::finished, this, [=]() { onFinished(); });
         }
     }
 

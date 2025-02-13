@@ -45,9 +45,7 @@ MainWindow::MainWindow(QWidget *parent)
  * the sheet is a sliding sidepanel and the content can be any QWidget
  * To close the sheet from your code invoke hideSheet(true);
  * To open the sheet from your code invoke showSheet(QWidget *destination, QWidget *content);
- * 
- * 
- * */
+ */
 void MainWindow::setupSheet() {
     // setup the sheet's content
     m_sheetContent = new QWidget(this);

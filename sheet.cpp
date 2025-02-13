@@ -109,7 +109,7 @@ void Sheet::layout(bool animated) {
         // resize the backdrop to full size of the destination widget
         m_backdrop->resize(m_destination->size());
         m_backdrop->move(0, 0);
-        // layout the sidepanel on the right side of the backdrop
+        // layout the sidepanel on the outside so that it can slide in
         const auto panelWidth = m_width;
         m_sidepanel->resize(panelWidth, m_backdrop->size().height());
         if (animated) {
