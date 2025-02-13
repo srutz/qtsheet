@@ -1,12 +1,15 @@
 
 # QtSheet
 
+![QtSheet Example](public/cast_qtsheet.gif)
+
 - [QtSheet](#qtsheet)
   - [Introduction](#introduction)
   - [Features](#features)
   - [Installation](#installation)
   - [Usage](#usage)
   - [License](#license)
+[![License: WTFPL](https://img.shields.io/badge/License-WTFPL-blue.svg)](http://www.wtfpl.net/about/)
 
 ## Introduction
 
