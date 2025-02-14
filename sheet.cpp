@@ -6,10 +6,10 @@
 #include <QResizeEvent>
 #include <QPushButton>
 #include <QIcon>
+#include <QShortcut>
+#include <QKeySequence>
 
 
-static const int SHOW_DURATION_MS = 400;
-static const int HIDE_DURATION_MS = 400;
 
 
 Sheet::Sheet(QWidget *content, QWidget *parent)
@@ -47,6 +47,13 @@ Sheet::Sheet(QWidget *content, QWidget *parent)
     closeButton->setFlat(true);
     closeButton->setIcon(QIcon::fromTheme("window-close-symbolic"));
     buttonBarLayout->addWidget(closeButton);
+
+    QShortcut* shortcut = new QShortcut(QKeySequence("Escape"), this);
+    connect(shortcut, &QShortcut::activated, this, [this] {
+        if (m_backdrop->isVisible()) {
+            hideSheet(true);
+        }
+    });
 }
 
 Sheet::~Sheet() {
@@ -83,7 +90,6 @@ void Sheet::showSheet(QWidget *destination, Side side) {
     connect(destination, &QWidget::destroyed, [this] {
         hideSheet(false);
     });
-    //content->setStyleSheet("background-color: pink;");
     QTimer::singleShot(0, [this]() { 
         layout(false);
         m_sidepanel->setPosition(QPoint(m_side == Side::Left ? -m_width : m_backdrop->width(), 0));
@@ -96,11 +102,11 @@ void Sheet::showSheet(QWidget *destination, Side side) {
 void Sheet::hideSheet(bool animated) {
     m_destination = nullptr;
     if (animated) {
-        m_sidepanel->setPositionA(QPoint(m_side == Side::Left ? -m_width : m_backdrop->width(), 0), HIDE_DURATION_MS, [this] {
+        m_sidepanel->setPositionA(QPoint(m_side == Side::Left ? -m_width : m_backdrop->width(), 0), m_hideDurationMs, [this] {
             m_backdrop->hide();
             m_sidepanel->hide();
         });
-        m_backdrop->setBackgroundColorA(QColor::fromRgb(0, 0, 0, 0), HIDE_DURATION_MS);
+        m_backdrop->setBackgroundColorA(QColor::fromRgb(0, 0, 0, 0), m_hideDurationMs);
     } else {
         m_sidepanel->setPosition(QPoint(m_side == Side::Left ? -m_width : m_backdrop->width(), 0));
         m_backdrop->hide();
@@ -118,8 +124,8 @@ void Sheet::layout(bool animated) {
         const auto panelWidth = m_width;
         m_sidepanel->resize(panelWidth, m_backdrop->size().height());
         if (animated) {
-            m_sidepanel->setPositionA(QPoint(m_side == Side::Left ? 0 : m_backdrop->width() - panelWidth, 0), SHOW_DURATION_MS);
-            m_backdrop->setBackgroundColorA(QColor::fromRgb(0, 0, 0, 192), SHOW_DURATION_MS);
+            m_sidepanel->setPositionA(QPoint(m_side == Side::Left ? 0 : m_backdrop->width() - panelWidth, 0), m_showDurationMs);
+            m_backdrop->setBackgroundColorA(QColor::fromRgb(0, 0, 0, 192), m_showDurationMs);
         } else {
             m_sidepanel->setPosition(QPoint(m_side == Side::Left ? 0 : m_backdrop->width() - panelWidth, 0));
             m_backdrop->setBackgroundColor(QColor::fromRgb(0, 0, 0, 192));

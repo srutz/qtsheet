@@ -1,7 +1,7 @@
 
 ![QtSheet Example](public/cast_qtsheet.gif)
 
-The anigif has reduced quality. See a real recording here [here](https://github.com/srutz/qtsheet/raw/refs/heads/main/public/cast_qtsheet.mp4).
+The anigif has reduced quality. See a real recording [here](https://github.com/srutz/qtsheet/raw/refs/heads/main/public/cast_qtsheet.mp4).
 
 # QtSheet
 
@@ -21,6 +21,23 @@ QtSheet is a simple and easy-to-use library for creating a sliding sheet in Qt.
 ## Features
 
 QtSheet provides a simple animated sliding sheet that can be used in any Qt application. The sheet can be used to display additional information or options to the user. The sheet's content is a just QWidget and completely up to you.
+
+You can customize the 
+
+- side of the sheet (left or right)
+- the width of the sheet (set to 400px by default)
+- the animation duration of the sheet  (set to 300ms by default)
+
+```cpp
+/* ... */
+m_sheet = new Sheet(sheetContent, this);
+m_sheet->setSheetWidth(600);
+m_sheet->setShowDurationMs(500);
+m_sheet->setHideDurationMs(500);
+/* ... */
+```
+
+- Hitting the ESC key will close the sheet
 
 ## Installation
 
@@ -100,4 +117,18 @@ The image shown in the example is not covered by the License of qtsheet, but is 
 
 QtSheet is written by Stepan Rutz and released under the WTFPL License. It comes with no warranty and as-is.
 The WTFPL License is provided as a file in this source-tree and is very permissive (to say the least).
+
+## Development with VSCode
+
+I develop jumping back and forth between QtCreator and VSCode, both open at the same time on the same source tree and it works just fine. To make it work with VSCode, you need to install the following extensions:
+
+- CMake
+- CMake Tools
+- C++
+- C++ Extension Pack
+- IntelliSense for C++
+
+Then you can open the folder in VSCode and it will automatically detect the CMakeLists.txt file and configure the project for you. You can then build and run the project from within VSCode.
+
+
 

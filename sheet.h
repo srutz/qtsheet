@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QPropertyAnimation>
 #include <QWidget>
+#include <QKeyEvent>
 #include <functional>
 
 class AnimatedWidget;
@@ -22,7 +23,10 @@ public:
         Right
     };
 
-    int m_width = 400;
+    int m_width = 400;  // width in pixels
+    int m_showDurationMs = 350; // default show duration in milliseconds
+    int m_hideDurationMs = 350; // default hide duration in milliseconds
+    
     Side m_side = Right;
     QWidget *m_content = nullptr;
     QWidget *m_destination;
@@ -37,8 +41,15 @@ public:
     void showSheet(QWidget *destination, Side side = Right);
     void hideSheet(bool animated = true);
     void layout(bool animated = true);
+
     int width() const { return m_width; }
     void setWidth(int width) { m_width = width; }
+
+    int showDurationMs() const { return m_showDurationMs; }
+    void setShowDurationMs(int duration) { m_showDurationMs = duration; }
+
+    int hideDurationMs() const { return m_hideDurationMs; }
+    void setHideDurationMs(int duration) { m_hideDurationMs = duration; }
 };
 ;
 
@@ -49,7 +60,12 @@ public:
     Q_PROPERTY(QPoint position READ position WRITE setPosition NOTIFY positionChanged)
     Q_PROPERTY(QColor backgroundColor READ backgroundColor WRITE setBackgroundColor NOTIFY backgroundColorChanged)
 
-    explicit AnimatedWidget(QWidget *parent = nullptr) : QWidget(parent) {}
+    explicit AnimatedWidget(QWidget *parent = nullptr) : QWidget(parent) {
+        this->installEventFilter(this);
+        for(QObject* child : children()) {
+            child->installEventFilter(this);
+        }
+    }
 
     QPoint position() const { return m_position; };
     void setPosition(const QPoint position)
@@ -124,6 +140,7 @@ public:
             anim->connect(anim, &QPropertyAnimation::finished, this, [=]() { onFinished(); });
         }
     }
+
 
 signals:
     void positionChanged(const QPoint point);
