@@ -41,12 +41,12 @@ m_sheet->setHideDurationMs(500);
 
 ## Installation
 
-In the spirit of Shadcn (A web component framework), just copy the ```qtsheet.h``` and ```qtsheet.cpp``` files into your project and use the sheet.
+In the spirit of Shadcn (A web component framework), just copy the ```sheet.h``` and ```sheet.cpp``` files into your project and use the sheet.
 
 ## Usage
 
 ```cpp
-#include "qtsheet.h"
+#include "sheet.h"
 
 MainWindow::MainWindow(QWidget *parent) {
     /* ... */
