@@ -26,6 +26,7 @@ public:
     int m_width = 400;  // width in pixels
     int m_showDurationMs = 350; // default show duration in milliseconds
     int m_hideDurationMs = 350; // default hide duration in milliseconds
+    bool m_showTopRightCloseButton = true; // 
     
     Side m_side = Right;
     QWidget *m_content = nullptr;
@@ -50,6 +51,9 @@ public:
 
     int hideDurationMs() const { return m_hideDurationMs; }
     void setHideDurationMs(int duration) { m_hideDurationMs = duration; }
+
+    bool showTopRightCloseButton() const { return m_showTopRightCloseButton; }
+    void setShowTopRightCloseButton(bool show) { m_showTopRightCloseButton = show; }
 };
 ;
 

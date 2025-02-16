@@ -78,6 +78,12 @@ void MainWindow::setupSheet() {
 
     // create the sheet panel
     m_sheet = new Sheet(m_sheetContent, this);
+
+    // set this to true if you want to hide the close button on the top right
+    if (false) {
+        sheetLayout->setContentsMargins(9, 9, 9, 0);
+        m_sheet->setShowTopRightCloseButton(false);
+    }
 }
 
 void MainWindow::resizeEvent(QResizeEvent *event) {

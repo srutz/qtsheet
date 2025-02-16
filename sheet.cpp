@@ -87,6 +87,7 @@ void Sheet::showSheet(QWidget *destination, Side side) {
     m_backdrop->show();
     m_sidepanel->setParent(destination);
     m_sidepanel->show();
+    m_buttonBar->setVisible(m_showTopRightCloseButton);
     connect(destination, &QWidget::destroyed, [this] {
         hideSheet(false);
     });
